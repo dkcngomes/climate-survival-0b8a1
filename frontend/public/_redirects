@@ -1,0 +1,3 @@
+# Netlify redirect — proxy API requests to Render backend
+# If netlify.toml is not read, this file acts as fallback
+/api/*  https://climate-survival-api.onrender.com/api/:splat  200

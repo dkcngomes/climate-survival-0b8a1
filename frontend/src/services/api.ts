@@ -1,4 +1,7 @@
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
+// In production (Netlify), NEXT_PUBLIC_API_URL is not set → use relative URLs
+// Netlify proxies /api/* → Render backend automatically.
+// In local dev, set NEXT_PUBLIC_API_URL=http://localhost:8080 in .env.local
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || "";
 
 import type {
   RecommendationResponse,

@@ -1,0 +1,40 @@
+# ─────────────────────────────────────────────────────────
+# Render Blueprint — Climate Survival (Backend API)
+# Deploys the .NET 9 API via Docker
+# ─────────────────────────────────────────────────────────
+
+services:
+  - type: web
+    name: climate-survival-api
+    runtime: docker
+    repo: https://github.com/dkcngomes/climate-survival
+    branch: main
+    rootDir: backend
+    dockerfilePath: Dockerfile
+    dockerContext: .
+
+    # ── Instance ──
+    plan: free
+    healthCheckPath: /api/recommendations/health
+
+    # ── Environment Variables ──
+    # Set these via Render Dashboard → Environment
+    # For .NET hierarchical keys, use __ (double underscore):
+    #   Gemini__ApiKey, Email__SmtpPass
+    envVars:
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Production
+      - key: ASPNETCORE_URLS
+        value: http://+:8080
+      - key: Gemini__ApiKey
+        sync: false   # ⬅️ Set via Dashboard (required for LLM reranking)
+      - key: Email__SmtpPass
+        sync: false   # ⬅️ Set via Dashboard (required for contact email)
+      - key: Email__SmtpUser
+        value: dkcngomes@gmail.com
+      - key: Email__ToAddress
+        value: dkcngomes@gmail.com
+      - key: Email__SmtpHost
+        value: smtp.gmail.com
+      - key: Email__SmtpPort
+        value: "587"
