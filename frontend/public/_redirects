@@ -1,3 +1,3 @@
-# Netlify redirect — proxy API requests to Render backend
-# If netlify.toml is not read, this file acts as fallback
-/api/*  https://climate-survival-api.onrender.com/api/:splat  200
+# Netlify redirect — proxy API requests to Hugging Face Space
+# ⚠️ Replace YOUR_HF_USERNAME below with your Hugging Face username
+/api/*  https://YOUR_HF_USERNAME-climate-survival-api.hf.space/api/:splat  200

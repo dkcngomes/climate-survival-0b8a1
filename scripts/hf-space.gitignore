@@ -1,0 +1,23 @@
+# ── Hugging Face Space .gitignore ──
+# Exclude secrets and dev files
+
+# .NET build artifacts
+bin/
+obj/
+
+# Development settings (contains SMTP password)
+appsettings.Development.json
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vs/
+.vscode/
+.idea/
+*.user
+*.suo
+
+# QwenPaw
+.qwenpaw/

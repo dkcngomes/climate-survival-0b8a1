@@ -8,12 +8,12 @@
   command = "npm ci && npm run build"
   publish = "out/"
 
-# ── Proxy API requests to Render backend ──
-# This avoids CORS issues: browser talks to the same origin,
-# Netlify forwards /api/* to the backend.
+# ── Proxy API requests to Hugging Face Space ──
+# ⚠️ Replace YOUR_HF_USERNAME below with your Hugging Face username
+# The Space name must match what you create on huggingface.co
 [[redirects]]
   from = "/api/*"
-  to   = "https://climate-survival-api.onrender.com/api/:splat"
+  to   = "https://YOUR_HF_USERNAME-climate-survival-api.hf.space/api/:splat"
   status = 200
   force = true
 
