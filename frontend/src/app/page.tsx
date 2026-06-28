@@ -208,6 +208,15 @@ function HomeContent() {
               </div>
             )}
 
+            {/* No Storage message — always before Grow section */}
+            {data.recommendations.length === 0 && (
+              <div className="mb-10 bg-green-50 border-2 border-green-200 rounded-2xl p-8 text-center">
+                <p className="text-4xl mb-4">✅</p>
+                <h3 className="text-xl font-bold text-green-800 mb-2">{t("noStorage.title")}</h3>
+                <p className="text-gray-800 max-w-lg mx-auto">{t("noStorage.description")}</p>
+              </div>
+            )}
+
             {/* Crop / Growing Section */}
             {cropData && cropData.crops.length > 0 && (
               <div className="mb-10">
@@ -233,14 +242,6 @@ function HomeContent() {
                     <CropRecommendationCard key={`${crop.cropName}-${i}`} crop={crop} index={i} />
                   ))}
                 </div>
-              </div>
-            )}
-
-            {data.recommendations.length === 0 && (
-              <div className="mb-10 bg-green-50 border-2 border-green-200 rounded-2xl p-8 text-center">
-                <p className="text-4xl mb-4">✅</p>
-                <h3 className="text-xl font-bold text-green-800 mb-2">{t("noStorage.title")}</h3>
-                <p className="text-gray-800 max-w-lg mx-auto">{t("noStorage.description")}</p>
               </div>
             )}
 
