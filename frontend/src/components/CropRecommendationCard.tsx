@@ -79,14 +79,14 @@ export default function CropRecommendationCard({ crop, index }: Props) {
                 {crop.suitabilityScore}% {t("grow.match")}
               </span>
             </div>
-            <h3 className="text-lg font-bold text-gray-900 mt-1">{crop.cropName}</h3>
+            <h3 className="text-lg font-bold text-black mt-1">{crop.cropName}</h3>
             <p className="text-xs text-gray-700">{crop.category}</p>
           </div>
         </div>
         {/* Harvest countdown */}
         <div className="text-right shrink-0">
           <p className="text-xs text-gray-700">{t("grow.harvestIn")}</p>
-          <p className="text-2xl font-extrabold text-gray-900">
+          <p className="text-2xl font-extrabold text-black">
             {daysUntilHarvestStart}-{daysUntilHarvestEnd}
           </p>
           <p className="text-xs text-gray-600">{t("grow.days")}</p>
@@ -94,23 +94,23 @@ export default function CropRecommendationCard({ crop, index }: Props) {
       </div>
 
       {/* Description & reason */}
-      <p className="text-sm text-gray-900 mb-3">{crop.description}</p>
+      <p className="text-sm text-black mb-3">{crop.description}</p>
       <p className="text-sm text-blue-800 bg-blue-50 rounded-lg p-3 mb-3">
         💡 <strong>{t("grow.whyGrow")}:</strong> {crop.recommendationReason}
       </p>
 
       {/* Tolerance badges */}
       <div className="flex flex-wrap gap-2 mb-3">
-        <span className="text-xs px-2 py-1 rounded-full bg-white border border-gray-200 text-gray-900">
+        <span className="text-xs px-2 py-1 rounded-full bg-white border border-gray-200 text-black">
           🌡️ {t("grow.heat")}: {toleranceIcon(crop.heatTolerance)} {crop.heatTolerance}
         </span>
-        <span className="text-xs px-2 py-1 rounded-full bg-white border border-gray-200 text-gray-900">
+        <span className="text-xs px-2 py-1 rounded-full bg-white border border-gray-200 text-black">
           ❄️ {t("grow.cold")}: {toleranceIcon(crop.coldTolerance)} {crop.coldTolerance}
         </span>
-        <span className="text-xs px-2 py-1 rounded-full bg-white border border-gray-200 text-gray-900">
+        <span className="text-xs px-2 py-1 rounded-full bg-white border border-gray-200 text-black">
           🏜️ {t("grow.drought")}: {toleranceIcon(crop.droughtTolerance)} {crop.droughtTolerance}
         </span>
-        <span className="text-xs px-2 py-1 rounded-full bg-white border border-gray-200 text-gray-900">
+        <span className="text-xs px-2 py-1 rounded-full bg-white border border-gray-200 text-black">
           🌊 {t("grow.flood")}: {toleranceIcon(crop.floodTolerance)} {crop.floodTolerance}
         </span>
       </div>
@@ -119,19 +119,19 @@ export default function CropRecommendationCard({ crop, index }: Props) {
       <div className="bg-white/80 rounded-xl p-3 space-y-2">
         <div className="flex items-start gap-2">
           <span className="text-green-700 font-bold text-sm">🌱</span>
-          <p className="text-sm text-gray-900">
+          <p className="text-sm text-black">
             <span className="font-semibold">{t("grow.planting")}:</span> {crop.plantingMethod}
           </p>
         </div>
         <div className="flex items-start gap-2">
           <span className="text-amber-700 font-bold text-sm">📋</span>
-          <p className="text-sm text-gray-900">
+          <p className="text-sm text-black">
             <span className="font-semibold">{t("grow.tip")}:</span> {crop.growingTip}
           </p>
         </div>
         <div className="flex items-start gap-2">
           <span className="text-purple-700 font-bold text-sm">📅</span>
-          <p className="text-sm text-gray-900">
+          <p className="text-sm text-black">
             <span className="font-semibold">{t("grow.plantBy")}:</span> {crop.plantByDate} →{" "}
             <span className="font-semibold">{t("grow.harvest")}:</span>{" "}
             {new Date(crop.harvestStartDate).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
