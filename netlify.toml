@@ -5,8 +5,11 @@
 
 [build]
   base    = "frontend/"
-  command = "npm ci && npm run build"
+  command = "npm install && npm run build"
   publish = "out/"
+
+[build.environment]
+  NODE_VERSION = "22"
 
 # ── Proxy API requests to Hugging Face Space ──
 [[redirects]]
