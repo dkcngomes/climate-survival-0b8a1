@@ -75,3 +75,33 @@ export async function submitContact(payload: ContactPayload) {
   }
   return res.json() as Promise<{ success: boolean; messageId: string }>;
 }
+
+// ─── Sri Lanka Prices (CBSL) ───
+
+export interface PriceEntry {
+  market: string;
+  yesterday: number | null;
+  today: number | null;
+  change: number | null;
+}
+
+export interface CommodityPrice {
+  commodity: string;
+  category: string;
+  unit: string;
+  prices: PriceEntry[];
+}
+
+export interface SriLankaPricesResponse {
+  source: string;
+  reportDate: string;
+  lastUpdated: string;
+  totalItems: number;
+  commodities: CommodityPrice[];
+}
+
+export async function fetchSriLankaPrices() {
+  const res = await fetch(`${API_BASE}/api/prices/sri-lanka`);
+  if (!res.ok) throw new Error(`Prices failed: ${res.statusText}`);
+  return res.json() as Promise<SriLankaPricesResponse>;
+}

@@ -34,5 +34,21 @@
     "thankYou": "谢谢！",
     "successMessage": "您的消息已收到。我们会尽快回复您。",
     "errorGeneric": "出了点问题。请稍后重试。"
+  },
+  "report": {
+    "download": "下载生存报告"
+  },
+  "prices": {
+    "sriLankaTitle": "斯里兰卡市场价格",
+    "source": "来源",
+    "refresh": "刷新",
+    "commodity": "商品",
+    "yesterday": "昨天",
+    "today": "今天",
+    "change": "变化",
+    "allCategories": "所有类别",
+    "allMarkets": "所有市场",
+    "noData": "所选筛选条件没有价格数据。",
+    "footer": "来自斯里兰卡中央银行(CBSL)的每日批发和零售价格。工作日更新。"
   }
 }

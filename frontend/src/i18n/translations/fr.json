@@ -34,5 +34,21 @@
     "thankYou": "Merci !",
     "successMessage": "Votre message a été reçu. Nous vous répondrons dès que possible.",
     "errorGeneric": "Une erreur est survenue. Veuillez réessayer plus tard."
+  },
+  "report": {
+    "download": "Télécharger le Rapport de Survie"
+  },
+  "prices": {
+    "sriLankaTitle": "Prix du Marché au Sri Lanka",
+    "source": "Source",
+    "refresh": "Actualiser",
+    "commodity": "Produit",
+    "yesterday": "Hier",
+    "today": "Aujourd'hui",
+    "change": "Variation",
+    "allCategories": "Toutes les Catégories",
+    "allMarkets": "Tous les Marchés",
+    "noData": "Aucune donnée de prix pour les filtres sélectionnés.",
+    "footer": "Prix de gros et de détail quotidiens de la Banque Centrale du Sri Lanka (CBSL). Mis à jour les jours ouvrés."
   }
 }

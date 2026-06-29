@@ -110,5 +110,21 @@
     "thankYou": "¡Gracias!",
     "successMessage": "Su mensaje ha sido recibido. Le responderemos lo antes posible.",
     "errorGeneric": "Algo salió mal. Por favor, inténtelo de nuevo más tarde."
+  },
+  "report": {
+    "download": "Descargar Informe de Supervivencia"
+  },
+  "prices": {
+    "sriLankaTitle": "Precios del Mercado de Sri Lanka",
+    "source": "Fuente",
+    "refresh": "Actualizar",
+    "commodity": "Producto",
+    "yesterday": "Ayer",
+    "today": "Hoy",
+    "change": "Cambio",
+    "allCategories": "Todas las Categorías",
+    "allMarkets": "Todos los Mercados",
+    "noData": "No hay datos de precios para los filtros seleccionados.",
+    "footer": "Precios mayoristas y minoristas diarios del Banco Central de Sri Lanka (CBSL). Actualizado en días laborables."
   }
 }

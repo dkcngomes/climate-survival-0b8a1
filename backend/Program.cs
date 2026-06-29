@@ -35,6 +35,12 @@ builder.Services.AddSingleton<IEmailService, EmailService>();
 builder.Services.AddHttpClient<IGeminiService, GeminiService>()
     .AddTransientHttpErrorPolicy(p => p.RetryAsync(1));
 
+// Sri Lanka price data (CBSL Daily Price Report)
+builder.Services.AddHttpClient<SriLankaPriceService>(client =>
+{
+    client.Timeout = TimeSpan.FromSeconds(15);
+});
+
 // CORS — allow frontend (Next.js dev server & production)
 builder.Services.AddCors(options =>
 {

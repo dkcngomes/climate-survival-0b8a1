@@ -11,6 +11,7 @@ import ClimateCharts from "@/components/ClimateCharts";
 import PdfDownloadButton from "@/components/PdfDownloadButton";
 import RecommendationCard from "@/components/RecommendationCard";
 import CropRecommendationCard from "@/components/CropRecommendationCard";
+import SriLankaPrices from "@/components/SriLankaPrices";
 import Link from "next/link";
 
 function HomeContent() {
@@ -259,6 +260,11 @@ function HomeContent() {
                 </div>
               </div>
             )}
+
+            {/* Sri Lanka Market Prices (CBSL) — only for LK users */}
+            <div className="mt-10 mb-4">
+              <SriLankaPrices countryCode={selectedCountry} />
+            </div>
 
             <div className="mt-8 text-center text-xs text-gray-600 border-t border-gray-200 pt-6">
               {t("footer.dataSources")}

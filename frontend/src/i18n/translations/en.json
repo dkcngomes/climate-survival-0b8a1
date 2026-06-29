@@ -125,5 +125,18 @@
   },
   "report": {
     "download": "Download Survival Report"
+  },
+  "prices": {
+    "sriLankaTitle": "Sri Lanka Market Prices",
+    "source": "Source",
+    "refresh": "Refresh",
+    "commodity": "Commodity",
+    "yesterday": "Yesterday",
+    "today": "Today",
+    "change": "Change",
+    "allCategories": "All Categories",
+    "allMarkets": "All Markets",
+    "noData": "No price data available for the selected filters.",
+    "footer": "Daily wholesale & retail prices from the Central Bank of Sri Lanka (CBSL). Updated on weekdays."
   }
 }
