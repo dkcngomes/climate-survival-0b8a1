@@ -136,7 +136,7 @@ export default function ClimateOverview({ forecast }: Props) {
       )}
 
       {/* Detected signals */}
-      <h3 className="text-sm font-semibold text-gray-800 uppercase tracking-wide mb-3">
+{/*       <h3 className="text-sm font-semibold text-gray-800 uppercase tracking-wide mb-3">
         {t("climate.detectedSignals")}
       </h3>
       <div className="space-y-3">
@@ -151,7 +151,8 @@ export default function ClimateOverview({ forecast }: Props) {
             </p>
           </div>
         ))}
-      </div>
+      </div> */}
+
     </div>
   );
 }
