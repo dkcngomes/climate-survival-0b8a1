@@ -26,22 +26,31 @@
   },
   "climate": {
     "outlook": "Climate Outlook",
+    "overallRisk": "Overall Climate Risk",
+    "location": "Location",
     "forecastConfidence": "Forecast confidence",
     "temperature": "Temperature",
     "precipitation": "Precipitation",
-    "seasonalAnomaly": "seasonal anomaly",
+    "temperatureAnomaly": "Temperature anomaly",
+    "precipitationAnomaly": "Precipitation anomaly",
+    "seasonalAnomaly": "Seasonal anomaly",
     "hydrometeo": "Hydrometeorological Data",
     "soilMoisture": "Soil Moisture",
     "dry": "Dry",
     "saturated": "Saturated",
     "drought": "Drought",
     "floodRisk": "Flood Risk",
+    "storm": "Storm",
     "stormRisk": "Storm Risk",
     "riverDischarge": "River discharge",
+    "windGust": "Wind gust",
     "maxWindGust": "Max wind gust",
     "precip3day": "3-day precip",
     "peakIntensity": "Peak intensity",
-    "detectedSignals": "Detected Climate Signals"
+    "detectedSignals": "Detected Climate Signals",
+    "charts": "Climate Charts",
+    "riskIndices": "Risk Indices",
+    "sensorData": "Sensor Data"
   },
   "forecast": {
     "horizon": "Forecast Horizon",
@@ -50,6 +59,8 @@
   "stockUp": {
     "title": "Stock Up — What to Buy Now",
     "description": "These items are likely to increase in price or become scarce based on the climate signals detected. Pre-purchase now.",
+    "item": "Item",
+    "risk": "Risk",
     "action": "Action",
     "storage": "Storage"
   },
@@ -65,6 +76,7 @@
     "harvestIn": "Harvest in",
     "days": "days",
     "match": "match",
+    "suitabilityScore": "Score",
     "heat": "Heat",
     "cold": "Cold",
     "drought": "Drought",
@@ -110,5 +122,8 @@
     "thankYou": "Thank You!",
     "successMessage": "Your message has been received. We'll get back to you as soon as possible.",
     "errorGeneric": "Something went wrong. Please try again later."
+  },
+  "report": {
+    "download": "Download Survival Report"
   }
 }

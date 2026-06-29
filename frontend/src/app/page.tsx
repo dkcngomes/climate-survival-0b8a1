@@ -7,6 +7,8 @@ import { LocalizationProvider, useLocalization } from "@/i18n/LocalizationContex
 import LanguageSwitcher from "@/i18n/LanguageSwitcher";
 import LocationPrompt from "@/components/LocationPrompt";
 import ClimateOverview from "@/components/ClimateOverview";
+import ClimateCharts from "@/components/ClimateCharts";
+import PdfDownloadButton from "@/components/PdfDownloadButton";
 import RecommendationCard from "@/components/RecommendationCard";
 import CropRecommendationCard from "@/components/CropRecommendationCard";
 import Link from "next/link";
@@ -180,6 +182,11 @@ function HomeContent() {
 
             <ClimateOverview forecast={data.forecast} />
 
+            {/* Climate Charts — wrapped in an id for PDF capture */}
+            <div id="climate-charts-section" className="mb-8">
+              <ClimateCharts forecast={data.forecast} />
+            </div>
+
             {/* Forecast period info */}
             {data.forecast.forecastPeriodLabel && (
               <div className="mb-6 bg-blue-50 border border-blue-200 rounded-xl px-5 py-3 flex items-center gap-3 text-sm">
@@ -196,9 +203,12 @@ function HomeContent() {
             {/* Food Storage Section */}
             {data.recommendations.length > 0 && (
               <div className="mb-10">
-                <h2 className="text-2xl font-bold text-gray-900 mb-2 flex items-center gap-2">
-                  🛒 {t("stockUp.title")}
-                </h2>
+                <div className="flex items-start justify-between gap-4 mb-2">
+                  <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
+                    🛒 {t("stockUp.title")}
+                  </h2>
+                  <PdfDownloadButton data={data} cropData={cropData} countryCode={selectedCountry} />
+                </div>
                 <p className="text-gray-700 text-sm mb-1">{t("stockUp.description")}</p>
                 {selectedCountry === "LK" && (
                   <p className="text-[11px] text-gray-500 mb-6 italic">
