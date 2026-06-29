@@ -6,7 +6,7 @@
   "error": { "title": "出了点问题", "tryAgain": "重试" },
   "climate": { "outlook": "气候展望", "forecastConfidence": "预测可信度", "temperature": "温度", "precipitation": "降水", "seasonalAnomaly": "季节性异常", "hydrometeo": "水文气象数据", "soilMoisture": "土壤湿度", "dry": "干燥", "saturated": "饱和", "drought": "干旱", "floodRisk": "洪水风险", "stormRisk": "风暴风险", "riverDischarge": "河流流量", "maxWindGust": "最大阵风", "precip3day": "3天降水", "peakIntensity": "峰值强度", "detectedSignals": "检测到的气候信号" },
   "forecast": { "horizon": "预测范围", "horizonDesc": "{{period}} — 存储和种植建议基于您所在地区的此预测。" },
-  "stockUp": { "title": "储备物资 — 现在该买什么", "description": "根据检测到的气候信号，这些商品可能会涨价或短缺。现在就购买。", "action": "行动", "storage": "存储" },
+  "stockUp": { "title": "储备物资 — 现在该买什么", "description": "根据检测到的气候信号，这些商品可能会涨价或短缺。现在就购买。", "action": "行动", "storage": "存储", "estPrice": "预估价格" },
   "grow": { "title": "自己种植 — 适应未来条件的作物", "description": "这些作物是根据您所在地区预测的天气变化选出的。现在种植，在未来数周至数月内收获。", "strategy": "您所在地区的种植策略", "whyGrow": "为什么种植", "planting": "种植方法", "tip": "提示", "plantBy": "种植截止", "harvest": "收获", "harvestIn": "收获期", "days": "天", "match": "匹配", "heat": "耐热", "cold": "耐寒", "drought": "耐旱", "flood": "耐涝" },
   "noStorage": { "title": "储备：无需紧急行动", "description": "您所在地区的气候条件正常。无需紧急储备，但种植建议可帮助建立长期粮食安全。" },
   "risk": { "overall": "总体气候风险级别", "items": "推荐{{count}}件商品提前购买", "items_plural": "推荐{{count}}件商品提前购买", "itemsAndCrops": "{{items}}需要储备 · 推荐种植{{crops}}种作物" },

@@ -75,6 +75,9 @@ export interface ItemRecommendation {
   suggestedAction: string;
   storageTip: string;
   triggerSignal: ClimateSignal;
+  estimatedPrice?: number | null;
+  currencyCode?: string;
+  currencySymbol?: string;
 }
 
 export interface RecommendationResponse {

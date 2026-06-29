@@ -62,7 +62,8 @@
     "item": "Item",
     "risk": "Risk",
     "action": "Action",
-    "storage": "Storage"
+    "storage": "Storage",
+    "estPrice": "Est. price"
   },
   "grow": {
     "title": "Grow Your Own — Crops for the Coming Conditions",

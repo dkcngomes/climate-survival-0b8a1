@@ -41,6 +41,12 @@ builder.Services.AddHttpClient<SriLankaPriceService>(client =>
     client.Timeout = TimeSpan.FromSeconds(15);
 });
 
+// Exchange rates (Frankfurter API — free, no key needed)
+builder.Services.AddHttpClient<ExchangeRateService>(client =>
+{
+    client.Timeout = TimeSpan.FromSeconds(10);
+});
+
 // CORS — allow frontend (Next.js dev server & production)
 builder.Services.AddCors(options =>
 {

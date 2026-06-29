@@ -51,7 +51,8 @@
     "title": "Abastecerse — Qué Comprar Ahora",
     "description": "Es probable que estos productos aumenten de precio o escaseen según las señales climáticas detectadas. Cómpralos ahora.",
     "action": "Acción",
-    "storage": "Almacenamiento"
+    "storage": "Almacenamiento",
+    "estPrice": "Precio est."
   },
   "grow": {
     "title": "Cultiva Tu Propio — Cultivos para las Condiciones Venideras",
