@@ -73,17 +73,19 @@ public class ClimateService : IClimateService
         {
             var url = $"https://seasonal-api.open-meteo.com/v1/seasonal?" +
                       $"latitude={forecast.Latitude}&longitude={forecast.Longitude}" +
-                      $"&daily=temperature_2m_mean_anomaly,precipitation_sum_anomaly,extreme_forecast_index_temperature_2m,extreme_forecast_index_precipitation_sum" +
+                      $"&daily=temperature_2m_mean,precipitation_sum" +
+                      $"&weekly=temperature_2m_anomaly,precipitation_anomaly,temperature_2m_efi,precipitation_efi" +
+                      $"&timezone=auto" +
                       $"&forecast_months=3";
 
             var response = await _http.GetFromJsonAsync<SeasonalApiResponse>(url, ct);
 
-            if (response?.Daily != null)
+            if (response?.Weekly != null)
             {
-                var temps = response.Daily.TemperatureAnomaly?.Where(v => v.HasValue).Select(v => v!.Value).ToList();
-                var preps = response.Daily.PrecipitationAnomaly?.Where(v => v.HasValue).Select(v => v!.Value).ToList();
-                var efiTemps = response.Daily.ExtremeForecastIndexTemperature?.Where(v => v.HasValue).Select(v => v!.Value).ToList();
-                var efiPreps = response.Daily.ExtremeForecastIndexPrecipitation?.Where(v => v.HasValue).Select(v => v!.Value).ToList();
+                var temps = response.Weekly.TemperatureAnomaly?.Where(v => v.HasValue).Select(v => v!.Value).ToList();
+                var preps = response.Weekly.PrecipitationAnomaly?.Where(v => v.HasValue).Select(v => v!.Value).ToList();
+                var efiTemps = response.Weekly.ExtremeForecastIndexTemperature?.Where(v => v.HasValue).Select(v => v!.Value).ToList();
+                var efiPreps = response.Weekly.ExtremeForecastIndexPrecipitation?.Where(v => v.HasValue).Select(v => v!.Value).ToList();
 
                 if (temps?.Count > 0) forecast.TemperatureAnomaly = Math.Round(temps.Average(), 2);
                 if (preps?.Count > 0) forecast.PrecipitationAnomaly = Math.Round(preps.Average(), 2);
@@ -143,11 +145,18 @@ public class ClimateService : IClimateService
     // ── DTOs ──
     private record ReverseGeoResponse(string? City, string? Locality, string? PrincipalSubdivision, string? CountryName);
 
-    private record SeasonalApiResponse(SeasonalDaily? Daily);
+    private record SeasonalApiResponse(
+        [property: JsonPropertyName("daily")] SeasonalDaily? Daily,
+        [property: JsonPropertyName("weekly")] SeasonalWeekly? Weekly
+    );
     private record SeasonalDaily(
-        [property: JsonPropertyName("temperature_2m_mean_anomaly")] double?[]? TemperatureAnomaly,
-        [property: JsonPropertyName("precipitation_sum_anomaly")] double?[]? PrecipitationAnomaly,
-        [property: JsonPropertyName("extreme_forecast_index_temperature_2m")] double?[]? ExtremeForecastIndexTemperature,
-        [property: JsonPropertyName("extreme_forecast_index_precipitation_sum")] double?[]? ExtremeForecastIndexPrecipitation
+        [property: JsonPropertyName("temperature_2m_mean")] double?[]? TemperatureMean,
+        [property: JsonPropertyName("precipitation_sum")] double?[]? PrecipitationSum
+    );
+    private record SeasonalWeekly(
+        [property: JsonPropertyName("temperature_2m_anomaly")] double?[]? TemperatureAnomaly,
+        [property: JsonPropertyName("precipitation_anomaly")] double?[]? PrecipitationAnomaly,
+        [property: JsonPropertyName("temperature_2m_efi")] double?[]? ExtremeForecastIndexTemperature,
+        [property: JsonPropertyName("precipitation_efi")] double?[]? ExtremeForecastIndexPrecipitation
     );
 }
