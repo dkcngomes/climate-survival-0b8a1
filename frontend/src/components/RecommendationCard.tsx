@@ -7,6 +7,7 @@ import { getAffiliateSearchUrl } from "@/config/affiliate";
 interface Props {
   item: ItemRecommendation;
   index: number;
+  countryCode?: string;
 }
 
 const riskColors: Record<string, { bg: string; text: string; dot: string }> = {
@@ -27,10 +28,11 @@ const categoryIcons: Record<string, string> = {
   Agriculture: "🌱",
 };
 
-export default function RecommendationCard({ item, index }: Props) {
+export default function RecommendationCard({ item, index, countryCode }: Props) {
   const { t } = useLocalization();
   const colors = riskColors[item.riskLevel] || riskColors.Medium;
   const icon = categoryIcons[item.category] || "📦";
+  const isSriLanka = countryCode === "LK";
 
   return (
     <div className={`rounded-2xl border-2 p-5 ${colors.bg} transition-all hover:shadow-md`}>
@@ -67,17 +69,19 @@ export default function RecommendationCard({ item, index }: Props) {
         </div>
       </div>
 
-      {/* Affiliate link */}
-      <a
-        href={getAffiliateSearchUrl(item.itemName)}
-        target="_blank"
-        rel="noopener noreferrer sponsored"
-        className="mt-3 inline-flex items-center gap-1.5 text-xs text-orange-600 hover:text-orange-800 transition-colors"
-      >
-        <span>🛒</span>
-        <span>Buy on Daraz</span>
-        <span className="text-[10px] opacity-70">(affiliate)</span>
-      </a>
+      {/* Affiliate link — only shown for Sri Lanka (Daraz.lk) */}
+      {isSriLanka && (
+        <a
+          href={getAffiliateSearchUrl(item.itemName)}
+          target="_blank"
+          rel="noopener noreferrer sponsored"
+          className="mt-3 inline-flex items-center gap-1.5 text-xs text-orange-600 hover:text-orange-800 transition-colors"
+        >
+          <span>🛒</span>
+          <span>Buy on Daraz</span>
+          <span className="text-[10px] opacity-70">(affiliate)</span>
+        </a>
+      )}
     </div>
   );
 }
