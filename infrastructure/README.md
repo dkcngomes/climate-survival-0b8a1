@@ -1,27 +1,9 @@
-# ── AWS Infrastructure for ClimateBuy ──
+# ⚠️ Legacy — No Longer Used
 
-This deploys the backend (ECS Fargate) and frontend (S3 + CloudFront).
+This infrastructure directory contains old Terraform configs for AWS (ECS Fargate + S3 + CloudFront).
 
-## Prerequisites
+**Current deployment:**
+- **Backend**: Hugging Face Spaces (Docker, free) → https://nipunadkcn-climate-survival-api.hf.space
+- **Frontend**: Netlify (static export, free) → https://climate-survival.netlify.app
 
-- AWS CLI configured with appropriate credentials
-- Terraform v1.5+
-- Docker
-- A domain name (optional, for CloudFront)
-
-## Usage
-
-```bash
-cd infrastructure
-terraform init
-terraform plan -var="domain_name=climatebuy.yourdomain.com"
-terraform apply -var="domain_name=climatebuy.yourdomain.com"
-```
-
-## Architecture
-
-```
-CloudFront ──► S3 (Frontend static files)
-         └──► ALB ──► ECS Fargate (Backend API)
-```
-
+See [HF_DEPLOY.md](../HF_DEPLOY.md) for current deployment instructions.

@@ -1,36 +1,35 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Climate Survival — Frontend
 
-## Getting Started
+Next.js 16 app with Tailwind CSS, static-exported to Netlify.
 
-First, run the development server:
+## Features
+
+- Climate risk overview with interactive Recharts charts
+- Stock-up recommendations based on seasonal forecasts
+- Crop recommendations with AI re-ranking (optional Gemini)
+- Sri Lanka CBSL market prices (LK users only)
+- Daraz affiliate links (LK users only)
+- Multi-language support (en, si, es, fr, zh)
+- PDF survival report download
+- Contact form
+- Google Analytics
+
+## Local Development
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Set `NEXT_PUBLIC_API_URL=http://localhost:8080` in `.env.local` to use local backend.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Build
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+# Output in out/ — ready for static hosting
+```
 
-## Learn More
+## Deployment
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Auto-deploys on Netlify when pushing to `dkcngomes/climate-survival-0b8a1`.
