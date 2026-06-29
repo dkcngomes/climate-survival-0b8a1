@@ -9,7 +9,7 @@
 
 export const AFFILIATE_CONFIG = {
   daraz: {
-    affiliateId: "YOUR_DARAZ_AFFILIATE_ID", // ← Replace with your Daraz affiliate ID
+    affiliateId: "155412816", // ← Your Daraz affiliate member ID
     baseUrl: "https://www.daraz.lk",
   },
 } as const;
