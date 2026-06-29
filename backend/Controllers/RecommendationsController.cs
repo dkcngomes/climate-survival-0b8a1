@@ -16,21 +16,19 @@ public class RecommendationsController : ControllerBase
 
     /// <summary>
     /// Get climate-based purchase recommendations for a given location.
-    /// Optionally specify a currency code (e.g. LKR, EUR) to convert prices.
     /// </summary>
     [HttpGet]
     public async Task<IActionResult> Get(
         [FromQuery] double lat,
         [FromQuery] double lng,
-        [FromQuery] string? currency = null,
-        CancellationToken ct = default)
+        CancellationToken ct)
     {
         if (lat < -90 || lat > 90)
             return BadRequest(new { error = "Latitude must be between -90 and 90" });
         if (lng < -180 || lng > 180)
             return BadRequest(new { error = "Longitude must be between -180 and 180" });
 
-        var result = await _recommendation.GenerateRecommendationsAsync(lat, lng, currency, ct);
+        var result = await _recommendation.GenerateRecommendationsAsync(lat, lng, ct);
         return Ok(result);
     }
 

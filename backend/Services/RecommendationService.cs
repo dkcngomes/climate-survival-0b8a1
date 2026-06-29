@@ -6,23 +6,15 @@ public class RecommendationService : IRecommendationService
 {
     private readonly IClimateService _climate;
     private readonly IPriceService _prices;
-    private readonly ExchangeRateService _exchangeRates;
-    private readonly ICountryLocaleService _locales;
 
-    public RecommendationService(
-        IClimateService climate,
-        IPriceService prices,
-        ExchangeRateService exchangeRates,
-        ICountryLocaleService locales)
+    public RecommendationService(IClimateService climate, IPriceService prices)
     {
         _climate = climate;
         _prices = prices;
-        _exchangeRates = exchangeRates;
-        _locales = locales;
     }
 
     public async Task<RecommendationResponse> GenerateRecommendationsAsync(
-        double latitude, double longitude, string? currencyCode = null, CancellationToken ct = default)
+        double latitude, double longitude, CancellationToken ct = default)
     {
         var forecast = await _climate.GetForecastAsync(latitude, longitude, ct);
         var priceData = await _prices.GetPricesAsync(ct);
@@ -34,49 +26,32 @@ public class RecommendationService : IRecommendationService
             .OrderBy(r => r.Priority)
             .ToList();
 
-        // ── Determine target currency ──
-        if (string.IsNullOrEmpty(currencyCode))
-            currencyCode = "USD";
-
-        // Get currency metadata from locale service if possible
-        string currencySymbol = "$";
-        try
-        {
-            // Find a locale that uses this currency code
-            var allLocales = _locales.GetAllLocales();
-            var match = allLocales.FirstOrDefault(l =>
-                l.CurrencyCode.Equals(currencyCode, StringComparison.OrdinalIgnoreCase));
-            if (match != null)
-                currencySymbol = match.CurrencySymbol;
-        }
-        catch { /* fallback */ }
-
-        // ── Get exchange rate ──
-        var rate = await _exchangeRates.GetRateAsync(currencyCode, ct);
-
         var recommendations = new List<ItemRecommendation>();
 
         foreach (var rule in matchedRules)
         {
             foreach (var item in rule.Items)
             {
-                // Calculate local price from USD base
-                var baseUsd = ExchangeRateService.GetBasePriceUsd(item.ItemName);
-                var localPrice = Math.Round(baseUsd * rate, 2);
+                // Check if we have price info for this item
+                var priceInfo = priceData
+                    .FirstOrDefault(p =>
+                        p.ItemName.Contains(item.ItemName, StringComparison.OrdinalIgnoreCase) ||
+                        item.ItemName.Contains(p.ItemName, StringComparison.OrdinalIgnoreCase));
+
+                var priceSuffix = priceInfo != null
+                    ? $" (Current est.: ${priceInfo.EstimatedPrice:F2}/{priceInfo.Unit})"
+                    : string.Empty;
 
                 recommendations.Add(new ItemRecommendation
                 {
                     ItemName = item.ItemName,
                     Category = item.Category,
-                    Reason = item.Reason,
+                    Reason = $"{item.Reason}{priceSuffix}",
                     Priority = rule.Priority,
                     RiskLevel = rule.RiskLevel,
                     SuggestedAction = item.SuggestedAction,
                     StorageTip = item.StorageTip,
-                    TriggerSignal = rule.TriggerSignal,
-                    EstimatedPrice = localPrice,
-                    CurrencyCode = currencyCode,
-                    CurrencySymbol = currencySymbol,
+                    TriggerSignal = rule.TriggerSignal
                 });
             }
         }
@@ -260,7 +235,7 @@ public static class ClimateRules
 public class ClimateRule
 {
     public ClimateSignal TriggerSignal { get; set; }
-    public int Priority { get; set; } // 1 = most urgent
+    public int Priority { get; set; }
     public string RiskLevel { get; set; } = "Medium";
     public List<RuleItem> Items { get; set; } = new();
 }

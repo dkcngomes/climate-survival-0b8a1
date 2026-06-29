@@ -26,23 +26,19 @@ Know what to buy and stock before prices rise, plus which crops to plant that wi
 ## Architecture
 
 ```
-┌──────────────────────────┐     ┌──────────────────────────┐     ┌─────────────────────┐
-│   Next.js 16 Frontend     │────▶│    .NET 9 Backend API    │────▶│   Open-Meteo APIs   │
-│  (Static Export → Netlify)│     │  (Docker → HF Spaces)   │     │  Seasonal/Forecast  │
-│                           │     │                          │     │  (free, no key)     │
-│  • Browser Geolocation    │     │  • Climate Analysis      │     └─────────────────────┘
-│  • Climate Overview       │     │  • Rule Engine + LLM     │     ┌─────────────────────┐
-│  • Stock Recommendations  │     │  • Crop Recommendation   │────▶│   Google Gemini     │
-│  • Crop Recommendations   │     │  • HydroMeteo Data       │     │  (free tier, opt.)  │
-│  • Interactive Charts     │     │  • Contact Form (SMTP)   │     └─────────────────────┘
-│  • PDF Survival Report    │     │  • CBSL Price Data       │     ┌─────────────────────┐
-│  • Daraz Affiliate Links  │     │  • Live Exchange Rates   │────▶│   Frankfurter API   │
-│  • Localized Currency     │     │  • Caching (Polly)       │     │  (free, no key)     │
-│  • Multi-language (5)     │     └──────────────────────────┘     └─────────────────────┘
-└──────────────────────────┘                                      ┌─────────────────────┐
-                                                                  │   CBSL Daily Price  │
-                                                                  │   PDF (free)        │
-                                                                  └─────────────────────┘
+┌──────────────────────────┐     ┌─────────────────────────┐     ┌─────────────────────┐
+│   Next.js 16 Frontend     │────▶│    .NET 9 Backend API   │────▶│   Open-Meteo APIs   │
+│  (Static Export → Netlify)│     │  (Docker → HF Spaces)  │     │  Seasonal/Forecast  │
+│                           │     │                         │     │  (free, no key)     │
+│  • Browser Geolocation    │     │  • Climate Analysis     │     └─────────────────────┘
+│  • Climate Overview       │     │  • Rule Engine + LLM    │     ┌─────────────────────┐
+│  • Stock Recommendations  │     │  • Crop Recommendation  │────▶│   Google Gemini     │
+│  • Crop Recommendations   │     │  • HydroMeteo Data      │     │  (free tier, opt.)  │
+│  • Interactive Charts     │     │  • Contact Form (SMTP)  │     └─────────────────────┘
+│  • PDF Survival Report    │     │  • CBSL Price Data      │     ┌─────────────────────┐
+│  • Daraz Affiliate Links  │     │  • Caching (Polly)      │────▶│   CBSL Daily Price  │
+│  • Multi-language (5)     │     └─────────────────────────┘     │   PDF (free)        │
+└──────────────────────────┘                                      └─────────────────────┘
 ```
 
 ## ✨ Features
@@ -54,7 +50,6 @@ Know what to buy and stock before prices rise, plus which crops to plant that wi
 - **📈 Interactive Climate Charts** — Recharts-based visualizations: anomaly bars, risk gauges, soil moisture, sensor data
 - **📄 PDF Survival Report** — Client-side PDF generation (jsPDF + html2canvas) with all recommendations
 - **🇱🇰 Sri Lanka Market Prices** — Live daily wholesale/retail prices from CBSL across 5 markets (Dambulla, Nuwara Eliya, Kandy, Pettah, Jaffna)
-- **💱 Localized Currency** — Stock-up prices auto-converted to user's local currency via live exchange rates (Frankfurter API, free, no key)
 - **🛍️ Daraz Affiliate Integration** — "Buy on Daraz" links (LK users only, Member ID: `155412816`)
 - **🌐 Multi-Language** — English, Sinhala, Spanish, French, Chinese with auto-detect from location
 - **📧 Contact Form** — Forwards submissions via Gmail SMTP to dkcngomes@gmail.com
@@ -66,7 +61,7 @@ Know what to buy and stock before prices rise, plus which crops to plant that wi
 |-------|-----------|
 | **Frontend** | Next.js 16, React, TypeScript, Tailwind CSS, Recharts |
 | **Backend** | .NET 9, ASP.NET Core Web API, PdfPig, MailKit |
-| **APIs (free)** | Open-Meteo Seasonal, World Bank, BigDataCloud, ip-api.com, Wikipedia, Google Gemini (free tier), CBSL PDF, Frankfurter (exchange rates) |
+| **APIs (free)** | Open-Meteo Seasonal, World Bank, BigDataCloud, ip-api.com, Wikipedia, Google Gemini (free tier), CBSL PDF |
 | **Frontend Hosting** | Netlify (free, static export) |
 | **Backend Hosting** | Hugging Face Spaces (free Docker, port 7860) |
 | **Analytics** | Google Analytics (G-ECE9GWGK7E) |
@@ -88,7 +83,6 @@ climate-advisor/
 │   │   ├── ClimateService.cs
 │   │   ├── RecommendationService.cs
 │   │   ├── CropRecommendationService.cs
-│   │   ├── ExchangeRateService.cs    # Live FX rates (Frankfurter)
 │   │   ├── GeminiService.cs        # LLM re-ranking
 │   │   ├── SriLankaPriceService.cs # CBSL PDF parser
 │   │   ├── EmailService.cs         # Gmail SMTP
@@ -142,7 +136,7 @@ npm run dev
 
 | Endpoint | Method | Description |
 |----------|--------|-------------|
-| `/api/recommendations?lat=X&lng=X&currency=XXX` | GET | Climate overview + stock-up recommendations (optionally pass `currency` for localized prices) |
+| `/api/recommendations?lat=X&lng=X` | GET | Climate overview + stock-up recommendations |
 | `/api/crops?lat=X&lng=X&countryCode=XX` | GET | Crop recommendations for the area |
 | `/api/locations/countries` | GET | List supported countries |
 | `/api/locations/ip-country` | GET | Detect country from IP |

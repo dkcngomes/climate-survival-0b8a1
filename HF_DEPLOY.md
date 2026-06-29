@@ -91,5 +91,3 @@ Hugging Face Spaces use `appsettings.json` by default. For secrets, add **Reposi
 3. Then click **New variable** for each key.
 
 > Note: HF Spaces inject secrets as environment variables. .NET parses `GEMINI__APIKEY` as `Gemini:ApiKey` automatically.
-
-> **Currency localization** uses the Frankfurter API (`api.frankfurter.app`) — it's **free and requires no API key**, so no env var needed.

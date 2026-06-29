@@ -11,10 +11,8 @@ import type {
   IpCountryResult,
 } from "@/types";
 
-export async function fetchRecommendations(lat: number, lng: number, currencyCode?: string) {
-  let url = `${API_BASE}/api/recommendations?lat=${lat}&lng=${lng}`;
-  if (currencyCode) url += `&currency=${currencyCode}`;
-  const res = await fetch(url);
+export async function fetchRecommendations(lat: number, lng: number) {
+  const res = await fetch(`${API_BASE}/api/recommendations?lat=${lat}&lng=${lng}`);
   if (!res.ok) throw new Error(`Recommendations failed: ${res.statusText}`);
   return res.json() as Promise<RecommendationResponse>;
 }

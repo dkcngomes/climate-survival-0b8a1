@@ -60,10 +60,8 @@ function HomeContent() {
     setCropData(null);
 
     try {
-      // Pass the user's currency code so the backend returns localized prices
-      const currency = locale?.currencyCode || undefined;
       const [result, crops] = await Promise.all([
-        fetchRecommendations(lat, lng, currency),
+        fetchRecommendations(lat, lng),
         fetchCropRecommendations(lat, lng, countryCode),
       ]);
       setData(result);

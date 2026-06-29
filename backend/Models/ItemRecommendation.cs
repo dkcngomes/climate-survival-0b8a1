@@ -10,13 +10,6 @@ public class ItemRecommendation
     public string SuggestedAction { get; set; } = string.Empty;
     public string StorageTip { get; set; } = string.Empty;
     public ClimateSignal TriggerSignal { get; set; }
-
-    /// <summary>Estimated price in the user's local currency.</summary>
-    public decimal? EstimatedPrice { get; set; }
-    /// <summary>Currency code (e.g. LKR, USD, EUR).</summary>
-    public string CurrencyCode { get; set; } = "USD";
-    /// <summary>Currency symbol (e.g. $, Rs., €).</summary>
-    public string CurrencySymbol { get; set; } = "$";
 }
 
 public class RecommendationResponse

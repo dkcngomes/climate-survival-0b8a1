@@ -29,7 +29,7 @@ const categoryIcons: Record<string, string> = {
 };
 
 export default function RecommendationCard({ item, index, countryCode }: Props) {
-  const { t, formatCurrency } = useLocalization();
+  const { t } = useLocalization();
   const colors = riskColors[item.riskLevel] || riskColors.Medium;
   const icon = categoryIcons[item.category] || "📦";
   const isSriLanka = countryCode === "LK";
@@ -48,12 +48,6 @@ export default function RecommendationCard({ item, index, countryCode }: Props) 
             </div>
             <h3 className="text-lg font-bold text-gray-900 mt-1">{item.itemName}</h3>
             <p className="text-xs text-gray-700">{item.category}</p>
-            {/* Localized estimated price */}
-            {item.estimatedPrice != null && (
-              <p className="text-sm font-semibold text-gray-900 mt-1">
-                {t("stockUp.estPrice")}: {formatCurrency(item.estimatedPrice)}
-              </p>
-            )}
           </div>
         </div>
       </div>
