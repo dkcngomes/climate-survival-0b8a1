@@ -549,10 +549,14 @@ public class CropRecommendationService : ICropRecommendationService
 
         var recommendations = new List<CropRecommendation>();
 
-        // Fetch all images in parallel first
-        var imageTasks = scored.Select(s => (s.Crop.Name, Task: GetCropImageAsync(s.Crop.Name, ct))).ToArray();
-        await Task.WhenAll(imageTasks.Select(t => t.Task));
-        var imageMap = imageTasks.ToDictionary(t => t.Name, t => t.Task.Result);
+        // Fetch all images with rate-limited concurrency
+        const int maxConcurrent = 5;
+        using var imageSemaphore = new SemaphoreSlim(maxConcurrent, maxConcurrent);
+        var imageTasks = scored.Select(s => FetchCropImageWithThrottleAsync(s.Crop.Name, imageSemaphore, ct));
+        var imageResults = await Task.WhenAll(imageTasks);
+        var imageMap = new Dictionary<string, (string? ImageUrl, string? WikiUrl)>();
+        foreach (var (name, result) in imageResults)
+            imageMap[name] = result;
 
         // Build recommendations
         foreach (var s in scored)
@@ -595,10 +599,28 @@ public class CropRecommendationService : ICropRecommendationService
         };
     }
 
-    /// <summary>Fetch crop images from Wikipedia API in a single batch call, with in-memory caching.</summary>
+    /// <summary>Fetch a crop image from Wikipedia API with rate-limited throttling.</summary>
+    private async Task<(string Name, (string? ImageUrl, string? WikiUrl) Result)> FetchCropImageWithThrottleAsync(
+        string cropName, SemaphoreSlim semaphore, CancellationToken ct)
+    {
+        await semaphore.WaitAsync(ct);
+        try
+        {
+            var result = await GetCropImageAsync(cropName, ct);
+            return (cropName, result);
+        }
+        finally
+        {
+            // Small delay between releases to stagger the next batch
+            await Task.Delay(150, ct);
+            semaphore.Release();
+        }
+    }
+
+    /// <summary>Fetch a crop image from Wikipedia API, with in-memory caching of successful results only.</summary>
     private async Task<(string? ImageUrl, string? WikiUrl)> GetCropImageAsync(string cropName, CancellationToken ct)
     {
-        // Check cache
+        // Check cache (only hits if we previously got a valid image)
         if (ImageCache.TryGetValue(cropName, out var cached))
             return cached;
 
@@ -611,24 +633,22 @@ public class CropRecommendationService : ICropRecommendationService
 
             using var response = await _http.SendAsync(req, HttpCompletionOption.ResponseHeadersRead, ct);
             if (!response.IsSuccessStatusCode)
-                return CacheResult(cropName, null, null);
+                return (null, null); // Don't cache failures — allow retry next time
 
             var json = await response.Content.ReadFromJsonAsync<WikipediaSummary>(cancellationToken: ct);
             var imageUrl = json?.Thumbnail?.Source;
             var wikiUrl = json?.ContentUrls?.Desktop?.Page;
 
-            return CacheResult(cropName, imageUrl, wikiUrl);
+            // Only cache if we got a valid image URL
+            if (!string.IsNullOrEmpty(imageUrl))
+                ImageCache.TryAdd(cropName, (imageUrl, wikiUrl));
+
+            return (imageUrl, wikiUrl);
         }
         catch
         {
-            return CacheResult(cropName, null, null);
+            return (null, null); // Don't cache failures — allow retry next time
         }
-    }
-
-    private static (string?, string?) CacheResult(string cropName, string? imageUrl, string? wikiUrl)
-    {
-        ImageCache.TryAdd(cropName, (imageUrl, wikiUrl));
-        return (imageUrl, wikiUrl);
     }
 
     private static string MapToWikiTitle(string cropName) => cropName switch
