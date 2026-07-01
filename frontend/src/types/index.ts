@@ -141,3 +141,32 @@ export interface IpCountryResult {
   country: CountryInfo | null;
   locale: CountryLocale | null;
 }
+
+// ===== SMS ALERTS =====
+export interface CarrierEntry {
+  name: string;
+  code: string;
+  gatewayDomain: string;
+}
+
+export interface SmsSubscription {
+  id: string;
+  phoneNumber: string;
+  carrierCode: string;
+  latitude: number;
+  longitude: number;
+  locationName?: string;
+  countryCode?: string;
+  subscribedAt: string;
+  isActive: boolean;
+}
+
+export interface SubscribeRequest {
+  phoneNumber: string;
+  carrierCode: string;
+  latitude: number;
+  longitude: number;
+  locationName?: string;
+  countryCode?: string;
+  alertTypes?: string;
+}

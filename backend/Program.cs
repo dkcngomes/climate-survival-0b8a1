@@ -31,6 +31,9 @@ builder.Services.AddHttpClient<ICropRecommendationService, CropRecommendationSer
 // Email
 builder.Services.AddSingleton<IEmailService, EmailService>();
 
+// SMS Alerts
+builder.Services.AddSingleton<IAlertService, AlertService>();
+
 // Gemini LLM
 builder.Services.AddHttpClient<IGeminiService, GeminiService>()
     .AddTransientHttpErrorPolicy(p => p.RetryAsync(1));

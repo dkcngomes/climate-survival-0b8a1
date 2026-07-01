@@ -105,3 +105,50 @@ export async function fetchSriLankaPrices() {
   if (!res.ok) throw new Error(`Prices failed: ${res.statusText}`);
   return res.json() as Promise<SriLankaPricesResponse>;
 }
+
+// ─── SMS Alerts ───
+
+export async function fetchCarriers() {
+  const res = await fetch(`${API_BASE}/api/alerts/carriers`);
+  if (!res.ok) throw new Error(`Carriers failed: ${res.statusText}`);
+  return res.json() as Promise<import("@/types").CarrierEntry[]>;
+}
+
+export async function subscribeToAlerts(req: import("@/types").SubscribeRequest) {
+  const res = await fetch(`${API_BASE}/api/alerts/subscribe`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(req),
+  });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({ error: "Subscribe failed" }));
+    throw new Error(err.error || `HTTP ${res.status}`);
+  }
+  return res.json() as Promise<import("@/types").SmsSubscription>;
+}
+
+export async function unsubscribeFromAlerts(subscriptionId: string) {
+  const res = await fetch(`${API_BASE}/api/alerts/unsubscribe`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ subscriptionId }),
+  });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({ error: "Unsubscribe failed" }));
+    throw new Error(err.error || `HTTP ${res.status}`);
+  }
+  return res.json() as Promise<{ success: boolean }>;
+}
+
+export async function sendTestSms(phoneNumber: string, carrierCode: string) {
+  const res = await fetch(`${API_BASE}/api/alerts/test`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ phoneNumber, carrierCode }),
+  });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({ error: "Test SMS failed" }));
+    throw new Error(err.error || `HTTP ${res.status}`);
+  }
+  return res.json() as Promise<{ success: boolean; message: string }>;
+}

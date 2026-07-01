@@ -12,6 +12,7 @@ import PdfDownloadButton from "@/components/PdfDownloadButton";
 import RecommendationCard from "@/components/RecommendationCard";
 import CropRecommendationCard from "@/components/CropRecommendationCard";
 import SriLankaPrices from "@/components/SriLankaPrices";
+import AlertSubscription from "@/components/AlertSubscription";
 import AnimatedSection from "@/components/AnimatedSection";
 import AiThinkingIndicator from "@/components/AiThinkingIndicator";
 import {
@@ -331,6 +332,18 @@ function HomeContent() {
             <AnimatedSection>
               <div className="mt-10 mb-4">
                 <SriLankaPrices countryCode={selectedCountry} />
+              </div>
+            </AnimatedSection>
+
+            {/* SMS Alerts */}
+            <AnimatedSection>
+              <div className="mt-10 mb-4">
+                <AlertSubscription
+                  latitude={location.lat}
+                  longitude={location.lng}
+                  locationName={data.forecast.locationName}
+                  countryCode={selectedCountry}
+                />
               </div>
             </AnimatedSection>
 
