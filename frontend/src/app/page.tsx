@@ -159,20 +159,23 @@ function HomeContent() {
 
         {/* Tab bar — only when results are loaded */}
         {data && !loading && (
-          <div className="border-t border-gray-100">
+          <div className="border-t border-gray-200 bg-gray-50/80">
             <div className="max-w-5xl mx-auto px-4">
-              <nav className="flex gap-1 overflow-x-auto py-2 scrollbar-none" style={{ scrollbarWidth: 'none' }}>
+              <nav className="flex gap-1 overflow-x-auto py-2.5 scrollbar-none" style={{ scrollbarWidth: 'none' }}>
                 {tabs.map(tab => (
                   <button
                     key={tab.id}
                     onClick={() => setActiveTab(tab.id)}
-                    className={`px-4 py-2 text-sm font-medium rounded-lg whitespace-nowrap transition-all ${
+                    className={`relative px-5 py-2.5 text-sm font-semibold rounded-xl whitespace-nowrap transition-all duration-200 ${
                       activeTab === tab.id
-                        ? 'bg-emerald-100 text-emerald-800 shadow-sm'
-                        : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+                        ? 'bg-gradient-to-r from-emerald-600 to-emerald-500 text-white shadow-lg shadow-emerald-200 scale-105'
+                        : 'text-gray-500 hover:text-gray-900 hover:bg-white/70 hover:shadow-sm'
                     }`}
                   >
                     {tab.label}
+                    {activeTab === tab.id && (
+                      <span className="absolute inset-x-2 -bottom-0.5 h-0.5 rounded-full bg-emerald-300" />
+                    )}
                   </button>
                 ))}
               </nav>
